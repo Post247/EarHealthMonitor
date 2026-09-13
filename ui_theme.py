@@ -6,7 +6,7 @@ APP_QSS = """
 }
 
 QMainWindow, QWidget#root {
-    background-color: #1a1a1a;
+    background-color: #0a0a0c;
 }
 
 /* ---- Labels ---- */
@@ -94,7 +94,7 @@ QLabel#dailyLabel {
 
 /* ---- Menu ---- */
 QMenu {
-    background-color: #222222;
+    background-color: #151518;
     color: #eaeaea;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 8px;
@@ -125,11 +125,11 @@ QTabWidget::pane {
     background: transparent;
 }
 QScrollArea {
-    background: #1a1a1a;
+    background: #0a0a0c;
     border: none;
 }
 QScrollBar:vertical {
-    background: #1a1a1a;
+    background: #0a0a0c;
     width: 10px;
     margin: 0;
 }
@@ -150,7 +150,7 @@ QScrollBar::sub-page:vertical {
     background: transparent;
 }
 QWidget#cfgContent {
-    background: #1a1a1a;
+    background: #0a0a0c;
 }
 QTabBar::tab {
     background: transparent;
@@ -369,7 +369,7 @@ QLineEdit:focus {
     border-color: rgba(255, 255, 255, 0.35);
 }
 QComboBox QAbstractItemView {
-    background-color: #242424;
+    background-color: #17171a;
     color: #eaeaea;
     border: 1px solid rgba(255, 255, 255, 0.15);
     selection-background-color: #eaeaea;

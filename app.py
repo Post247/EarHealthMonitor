@@ -1,5 +1,6 @@
 import sys
 import time
+import os
 import winsound
 from datetime import datetime
 
@@ -21,6 +22,11 @@ from monitor import (
     ListeningMonitor, load_config, save_config,
     get_today_stats, get_week_stats, load_history, TIPS,
 )
+
+
+def _resource_path(rel):
+    base = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base, rel)
 
 
 class AlertSignal(QObject):
@@ -76,9 +82,9 @@ class ToastWidget(QWidget):
         w, h = self.width(), self.height()
 
         bg_map = {
-            "critical": QColor(34, 34, 34),
-            "warning":  QColor(34, 34, 34),
-            "info":     QColor(34, 34, 34),
+            "critical": QColor(21, 21, 24),
+            "warning":  QColor(21, 21, 24),
+            "info":     QColor(21, 21, 24),
         }
         border_map = {
             "critical": QColor(248, 113, 113),
@@ -118,7 +124,9 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("Ear Health Monitor")
         self.setMinimumSize(760, 620)
-        self.setWindowIcon(self.style().standardIcon(self.style().SP_ComputerIcon))
+        icon_path = _resource_path(os.path.join("assets", "logo.png"))
+        self._icon = QIcon(icon_path) if os.path.exists(icon_path) else None
+        self.setWindowIcon(self._icon or self.style().standardIcon(self.style().SP_ComputerIcon))
         self.setObjectName("main")
 
         self._setup_ui()
@@ -344,7 +352,7 @@ class MainWindow(QMainWindow):
     def _controls_bar(self):
         f = QFrame()
         f.setObjectName("card")
-        f.setStyleSheet("QFrame#card { background: #222222; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; }")
+        f.setStyleSheet("QFrame#card { background: #17171a; border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; }")
         h = QHBoxLayout(f)
         h.setContentsMargins(12, 8, 12, 8)
         h.setSpacing(12)
@@ -616,19 +624,19 @@ class MainWindow(QMainWindow):
     def _setup_tray(self):
         self._setup_ipc()
         self.tray = QSystemTrayIcon(self)
-        self.tray.setIcon(self.style().standardIcon(self.style().SP_ComputerIcon))
+        self.tray.setIcon(self._icon or self.style().standardIcon(self.style().SP_ComputerIcon))
         self.tray.setToolTip("Ear Health Monitor")
         m = QMenu()
         from PyQt5.QtGui import QPalette, QColor as _QColor
         _mPal = QPalette()
-        _mPal.setColor(QPalette.Window,       _QColor("#222222"))
-        _mPal.setColor(QPalette.Base,         _QColor("#222222"))
+        _mPal.setColor(QPalette.Window,       _QColor("#151518"))
+        _mPal.setColor(QPalette.Base,         _QColor("#151518"))
         _mPal.setColor(QPalette.Text,         _QColor("#eaeaea"))
         _mPal.setColor(QPalette.WindowText,   _QColor("#eaeaea"))
-        _mPal.setColor(QPalette.Button,       _QColor("#222222"))
+        _mPal.setColor(QPalette.Button,       _QColor("#151518"))
         _mPal.setColor(QPalette.ButtonText,   _QColor("#eaeaea"))
         _mPal.setColor(QPalette.Highlight,    _QColor("#eaeaea"))
-        _mPal.setColor(QPalette.HighlightedText, _QColor("#1a1a1a"))
+        _mPal.setColor(QPalette.HighlightedText, _QColor("#0a0a0c"))
         m.setPalette(_mPal)
         sa = QAction("Show", self)
         sa.triggered.connect(self._show)
@@ -924,12 +932,12 @@ class MainWindow(QMainWindow):
         from PyQt5.QtGui import QPalette, QColor
         view = combo.view()
         pal = view.palette()
-        pal.setColor(QPalette.Window, QColor(36, 36, 36))
-        pal.setColor(QPalette.Base, QColor(36, 36, 36))
+        pal.setColor(QPalette.Window, QColor(23, 23, 26))
+        pal.setColor(QPalette.Base, QColor(23, 23, 26))
         pal.setColor(QPalette.Text, QColor(234, 234, 234))
         pal.setColor(QPalette.WindowText, QColor(234, 234, 234))
         pal.setColor(QPalette.Highlight, QColor(234, 234, 234))
-        pal.setColor(QPalette.HighlightedText, QColor(26, 26, 26))
+        pal.setColor(QPalette.HighlightedText, QColor(10, 10, 12))
         view.setPalette(pal)
 
     def _show(self):
